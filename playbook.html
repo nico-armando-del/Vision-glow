@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Guide Prospecteur — Vision Glow</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── BASE ─────────────────────────────────── */
+    html, body { background: var(--bg, #0a0a0a); color: var(--fg, #f5f1ea); }
+    body {
+      font-family: 'Satoshi', sans-serif;
+      cursor: auto;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body .cursor-dot, body .cursor-ring { display: none !important; }
+
+    /* ── DOC SHELL ────────────────────────────── */
+    .pb {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 80px 64px 120px;
+      position: relative;
+    }
+    .pb::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 32px;
+      right: 32px;
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      pointer-events: none;
+    }
+
+    /* ── HEADER MINI ──────────────────────────── */
+    .pb-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 80px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--fg-2);
+    }
+    .pb-topbar-l {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pb-topbar-l .dot {
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .pb-topbar-l span {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .pb-topbar-r {
+      display: flex;
+      gap: 16px;
+    }
+    .pb-topbar-r .badge {
+      padding: 4px 10px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 100px;
+    }
+
+    /* ── COVER ────────────────────────────────── */
+    .pb-cover {
+      padding: 24px 0 80px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 80px;
+    }
+    .pb-cover-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--fg-2);
+      margin-bottom: 40px;
+    }
+    .pb-cover-title {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: clamp(48px, 9vw, 128px);
+      line-height: 0.9;
+      letter-spacing: -0.035em;
+      margin-bottom: 28px;
+      color: var(--fg);
+    }
+    .pb-cover-title em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .pb-cover-sub {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 400;
+      font-size: clamp(18px, 1.9vw, 24px);
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: var(--fg-2);
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+    .pb-cover-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--fg-2);
+      margin-bottom: 28px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+    .pb-cover-meta-sep {
+      color: var(--fg-3);
+    }
+    .pb-cover-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ── TYPOGRAPHY ───────────────────────────── */
+    .pb-h1 {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: clamp(36px, 4.4vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: var(--fg);
+      margin: 64px 0 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .pb-h1 .pb-h1-n {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--fg-2);
+      font-weight: 400;
+    }
+    .pb-h1 em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .pb-h2 {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: clamp(22px, 2.2vw, 30px);
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      color: var(--fg);
+      margin: 44px 0 14px;
+    }
+    .pb-h2 em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .pb-h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+      margin: 32px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .pb-p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--fg-2);
+      margin-bottom: 18px;
+      max-width: 64ch;
+    }
+    .pb-p strong { color: var(--fg); font-weight: 500; }
+    .pb-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 56px 0;
+    }
+
+    /* ── TAGS ─────────────────────────────────── */
+    .pb-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+    .pb-tag--orange {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .pb-tag--orange::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .pb-tag--green {
+      border-color: #4ade80;
+      color: #4ade80;
+    }
+    .pb-tag--green::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .pb-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 16px 0 24px;
+    }
+
+    /* ── QUOTE ────────────────────────────────── */
+    .pb-quote {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(24px, 3.4vw, 44px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      padding: 32px 0 32px 32px;
+      border-left: 2px solid var(--accent);
+      margin: 28px 0;
+      max-width: none;
+    }
+    .pb-quote em { color: var(--accent); }
+
+    /* ── CALLOUT ──────────────────────────────── */
+    .pb-callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 4px;
+      margin: 24px 0;
+    }
+    .pb-callout--orange { border-left-color: var(--accent); }
+    .pb-callout--yellow { border-left-color: #f5c84b; }
+    .pb-callout--gray   { border-left-color: var(--fg-2); }
+    .pb-callout-mark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--fg-2);
+      padding-top: 3px;
+      align-self: start;
+      white-space: nowrap;
+    }
+    .pb-callout--orange .pb-callout-mark { color: var(--accent); }
+    .pb-callout--yellow .pb-callout-mark { color: #f5c84b; }
+    .pb-callout p {
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 0;
+      color: var(--fg);
+    }
+    .pb-callout em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ── LISTS ────────────────────────────────── */
+    .pb-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 16px 0 24px;
+      border-top: 1px solid var(--line);
+    }
+    .pb-list li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 16px;
+      padding: 14px 4px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--fg);
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .pb-list .marker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .pb-list .marker.ok { color: #4ade80; }
+    .pb-list .marker.no { color: var(--accent); }
+
+    /* ── TABLE ────────────────────────────────── */
+    .pb-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .pb-table th, .pb-table td {
+      padding: 16px 18px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+    .pb-table tr:last-child th,
+    .pb-table tr:last-child td { border-bottom: none; }
+    .pb-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      font-weight: 400;
+      color: var(--fg-2);
+      width: 44%;
+      text-transform: uppercase;
+    }
+    .pb-table td {
+      color: var(--fg);
+      line-height: 1.5;
+    }
+
+    /* ── OFFER CARDS ──────────────────────────── */
+    .pb-offers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 28px 0;
+    }
+    .pb-offer {
+      position: relative;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .pb-offer--featured {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    .pb-offer-badge {
+      position: absolute;
+      top: -1px;
+      right: 16px;
+      background: var(--fg);
+      color: var(--bg);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 4px 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .pb-offer-name {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+      color: inherit;
+    }
+    .pb-offer-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+      margin: 0 0 18px;
+    }
+    .pb-offer--featured .pb-offer-tag { color: rgba(10,10,10,0.7); }
+    .pb-offer-price {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 16px;
+    }
+    .pb-offer--featured .pb-offer-price { color: var(--bg); border-color: rgba(10,10,10,0.15); }
+    .pb-offer-price small {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--fg-2);
+      margin-left: 6px;
+    }
+    .pb-offer--featured .pb-offer-price small { color: rgba(10,10,10,0.7); }
+    .pb-offer-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .pb-offer-list li {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--fg-2);
+    }
+    .pb-offer--featured .pb-offer-list li { color: rgba(10,10,10,0.85); }
+    .pb-offer-list .plus {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+    }
+    .pb-offer--featured .pb-offer-list .plus { color: var(--bg); font-weight: 700; }
+    .pb-offer-ideal {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      line-height: 1.55;
+      color: var(--fg-2);
+      padding-top: 14px;
+      border-top: 1px dashed var(--line);
+      margin: 0;
+    }
+    .pb-offer--featured .pb-offer-ideal {
+      color: rgba(10,10,10,0.7);
+      border-color: rgba(10,10,10,0.2);
+    }
+    .pb-offer-ideal strong {
+      color: var(--fg);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .pb-offer--featured .pb-offer-ideal strong { color: var(--bg); }
+
+    /* ── SITUATION CARDS ──────────────────────── */
+    .pb-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 24px 0;
+      border-top: 1px solid var(--line);
+    }
+    .pb-card {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      transition: padding 0.3s var(--ease);
+    }
+    .pb-card:hover { padding-left: 12px; }
+    .pb-card:hover .pb-card-title { color: var(--accent); }
+    .pb-card-side {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pb-card-n {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--fg-2);
+    }
+    .pb-card-title {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      transition: color 0.3s var(--ease);
+      color: var(--fg);
+    }
+    .pb-card-title em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .pb-card-body {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--fg-2);
+      max-width: 60ch;
+    }
+    .pb-card-formule {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    /* ── OBJECTIONS ───────────────────────────── */
+    .pb-objs {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+      border-top: 1px solid var(--line);
+    }
+    .pb-obj {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .pb-obj-q {
+      font-family: 'Clash Display', sans-serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--accent);
+      margin: 0;
+    }
+    .pb-obj-q::before {
+      content: '"';
+      font-family: 'Clash Display', sans-serif;
+      font-size: 32px;
+      line-height: 0;
+      vertical-align: -10px;
+      margin-right: 4px;
+      color: var(--fg-2);
+    }
+    .pb-obj-q::after {
+      content: '"';
+      font-family: 'Clash Display', sans-serif;
+      font-size: 32px;
+      line-height: 0;
+      vertical-align: -10px;
+      margin-left: 4px;
+      color: var(--fg-2);
+    }
+    .pb-obj-a {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--fg);
+      margin: 0;
+    }
+
+    /* ── CONTACT BLOCK ────────────────────────── */
+    .pb-contact {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 36px 40px;
+      margin-top: 32px;
+    }
+    .pb-contact-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      font-family: 'Clash Display', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+    }
+    .pb-contact-logo .dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ── FOOTER ───────────────────────────────── */
+    .pb-watermark {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 600;
+      font-size: clamp(48px, 14vw, 200px);
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      text-align: center;
+      white-space: nowrap;
+      padding: 100px 0 0;
+      overflow: hidden;
+    }
+    .pb-foot {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 64px 64px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--fg-2);
+      letter-spacing: 0.1em;
+    }
+    .pb-foot a:hover { color: var(--accent); }
+
+    /* ── PAGE BREAK (print) ───────────────────── */
+    .pb-pagebreak { page-break-after: always; height: 0; margin: 0; }
+
+    /* ── RESPONSIVE ───────────────────────────── */
+    @media (max-width: 900px) {
+      .pb { padding: 40px 24px 80px; }
+      .pb::before { display: none; }
+      .pb-h1 { flex-direction: column; align-items: start; gap: 4px; }
+      .pb-offers { grid-template-columns: 1fr; }
+      .pb-card { grid-template-columns: 1fr; gap: 12px; }
+      .pb-obj { grid-template-columns: 1fr; gap: 14px; }
+      .pb-contact { padding: 24px; }
+      .pb-table th, .pb-table td { padding: 12px 14px; }
+      .pb-foot { padding: 20px 24px 40px; flex-direction: column; }
+    }
+
+    /* ── PRINT ────────────────────────────────── */
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .pb { padding: 40px 60px; max-width: none; }
+      .pb::before, .pb-watermark, .pb-foot { display: none !important; }
+      .pb-h1 { page-break-before: always; }
+      .pb-h1:first-of-type { page-break-before: avoid; }
+      .pb-offer, .pb-card, .pb-obj { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="pb">
+
+  <!-- TOPBAR -->
+  <div class="pb-topbar">
+    <div class="pb-topbar-l">
+      <span class="dot"></span>
+      <span>Vision Glow</span>
+    </div>
+    <div class="pb-topbar-r">
+      <span>VG / PB · GUIDE PROSPECTEUR · 2026</span>
+      <span class="badge">CONFIDENTIEL</span>
+    </div>
+  </div>
+
+  <!-- COVER -->
+  <section class="pb-cover">
+    <div class="pb-cover-eyebrow">DOCUMENT INTERNE — V1.0 — MAI 2026</div>
+    <h1 class="pb-cover-title">
+      Guide<br /><em>Prospecteur.</em>
+    </h1>
+    <p class="pb-cover-sub">
+      Tout ce qu'il faut savoir pour présenter Vision Glow, identifier les
+      bons clients et transformer un premier contact en mission.
+    </p>
+    <div class="pb-cover-meta">
+      <span>NICO-ARMANDO BERTONE — CEO</span>
+      <span class="pb-cover-meta-sep">·</span>
+      <span>VISIONGLOW.CONTACT@GMAIL.COM</span>
+      <span class="pb-cover-meta-sep">·</span>
+      <span>06 45 04 92 27</span>
+      <span class="pb-cover-meta-sep">·</span>
+      <span>VISION-GLOW.AGENCY</span>
+    </div>
+    <div class="pb-cover-tags">
+      <span class="pb-tag pb-tag--orange">Product Design</span>
+      <span class="pb-tag">SaaS et Startups</span>
+      <span class="pb-tag">Paris</span>
+      <span class="pb-tag pb-tag--green">Disponible Q3 / Q4 2026</span>
+    </div>
+  </section>
+
+  <div class="pb-pagebreak"></div>
+
+  <!-- 01 -->
+  <h2 class="pb-h1"><span>01 — La phrase d'<em>accroche</em></span><span class="pb-h1-n">PAGE 01</span></h2>
+  <p class="pb-p">Ouvrez chaque conversation avec cette phrase. Rien d'autre.</p>
+
+  <blockquote class="pb-quote">
+    Vision Glow c'est le product designer que vous n'avez pas encore
+    recruté, <em>disponible dès la semaine prochaine.</em>
+  </blockquote>
+
+  <div class="pb-callout pb-callout--yellow">
+    <span class="pb-callout-mark">[ TIPS ]</span>
+    <p>Si la personne demande <strong>« c'est quoi concrètement ? »</strong> vous êtes en train de vendre. Continuez avec la page suivante.</p>
+  </div>
+
+  <h3 class="pb-h2">L'argument qui <em>surprend</em> toujours.</h3>
+  <p class="pb-p">
+    Vous payez pour un product designer assigné à votre projet. Mais derrière,
+    il y a une équipe. Des sessions régulières réunissent plusieurs product designers
+    de Vision Glow pour parler de vos projets ensemble, croiser les regards, identifier
+    ce qu'on n'aurait pas vu seul. <strong>Vous avez la réactivité d'un interlocuteur unique
+    et la profondeur de réflexion d'une équipe.</strong> Vous ne payez pas pour un freelance isolé.
+  </p>
+
+  <div class="pb-callout pb-callout--orange">
+    <span class="pb-callout-mark">[ À DIRE ]</span>
+    <p>« Vous avez un product designer dédié. Mais il travaille avec d'autres product designers de Vision Glow qui regardent votre produit avec lui. <em>Vous payez pour un, vous bénéficiez de plusieurs.</em> »</p>
+  </div>
+
+  <div class="pb-pagebreak"></div>
+
+  <!-- 02 -->
+  <h2 class="pb-h1"><span>02 — Le client <em>idéal</em></span><span class="pb-h1-n">PAGE 02</span></h2>
+
+  <h3 class="pb-h2">À qui vous parlez.</h3>
+  <p class="pb-p">
+    <strong>CEO ou CPO d'une startup SaaS entre 10 et 80 personnes.</strong>
+    Leur produit fonctionne, ils ont des clients payants, mais quelque chose coince côté
+    design. Soit les utilisateurs abandonnent sans qu'on comprenne pourquoi, soit l'équipe
+    perd du temps à retravailler les mêmes choses, soit l'interface ne convainc plus en démo.
+  </p>
+
+  <h4 class="pb-h3">Les signaux qui montrent qu'ils ont besoin de nous maintenant</h4>
+  <ul class="pb-list">
+    <li><span class="marker ok">✓</span>Levée de fonds récente et envie de soigner l'interface avant de scaler</li>
+    <li><span class="marker ok">✓</span>Taux d'activation qui stagne malgré les itérations</li>
+    <li><span class="marker ok">✓</span>Les développeurs passent du temps à refaire les mêmes écrans deux fois par trimestre</li>
+    <li><span class="marker ok">✓</span>Le PM passe plus de temps à commenter des maquettes qu'à parler aux utilisateurs</li>
+    <li><span class="marker ok">✓</span>Ils cherchent un product designer en CDI depuis plusieurs mois sans succès</li>
+    <li><span class="marker ok">✓</span>Mauvaise expérience avec une agence ou un freelance qui livrait sans comprendre le produit</li>
+  </ul>
+
+  <h4 class="pb-h3">Les secteurs les plus porteurs</h4>
+  <div class="pb-tags-row">
+    <span class="pb-tag">Fintech</span>
+    <span class="pb-tag">RH tech</span>
+    <span class="pb-tag">Legal tech</span>
+    <span class="pb-tag">B2B SaaS</span>
+    <span class="pb-tag">Productivité</span>
+    <span class="pb-tag">Marketplace</span>
+    <span class="pb-tag">Santé digitale</span>
+  </div>
+
+  <h4 class="pb-h3">À qui vous ne parlez pas</h4>
+  <ul class="pb-list">
+    <li><span class="marker no">✗</span>Pas encore de produit ni de clients payants</li>
+    <li><span class="marker no">✗</span>Personne dans l'équipe capable de prendre des décisions produit</li>
+    <li><span class="marker no">✗</span>Ont déjà une idée très précise de ce qu'ils veulent et cherchent juste quelqu'un pour l'exécuter</li>
+    <li><span class="marker no">✗</span>Grandes entreprises avec des circuits de validation qui prennent des mois</li>
+  </ul>
+
+  <div class="pb-pagebreak"></div>
+
+  <!-- 03 -->
+  <h2 class="pb-h1"><span>03 — Le problème <em>qu'on résout</em></span><span class="pb-h1-n">PAGE 03</span></h2>
+
+  <h3 class="pb-h2">Ce qu'ils vivent sans product designer.</h3>
+  <p class="pb-p">
+    Un product designer en CDI à Paris coûte entre <strong>55 000 et 75 000 euros par an</strong>.
+    Avant qu'il soit opérationnel il faut compter deux à trois mois. Sans product
+    designer du tout, les décisions d'interface sont prises par des personnes qui
+    ne sont pas outillées pour les prendre : un PM qui arbitre seul sur un parcours
+    de paiement, un développeur qui interprète un plan flou, un CEO qui valide une
+    interface sans l'avoir testée avec ses utilisateurs.
+  </p>
+
+  <h4 class="pb-h3">Ce que ça coûte concrètement</h4>
+  <table class="pb-table">
+    <tbody>
+      <tr><th>Un sprint sur la mauvaise fonctionnalité</th><td>10 000 à 20 000 €</td></tr>
+      <tr><th>Un taux d'activation à 25 % au lieu de 60 %</th><td>Des centaines de milliers d'euros de revenus manqués sur un an</td></tr>
+      <tr><th>Un onboarding qui perd les utilisateurs sans explication</th><td>Du churn invisible depuis des mois</td></tr>
+      <tr><th>Pas de product designer pendant 6 mois</th><td>Retard sur le produit et décisions qui s'accumulent</td></tr>
+    </tbody>
+  </table>
+
+  <div class="pb-callout pb-callout--orange">
+    <span class="pb-callout-mark">[ QUESTION ]</span>
+    <p><em>« Quel est le coût pour vous de ne pas avoir de product designer en ce moment ? »</em> Laissez-les calculer eux-mêmes.</p>
+  </div>
+
+  <div class="pb-pagebreak"></div>
+
+  <!-- 04 -->
+  <h2 class="pb-h1"><span>04 — Les formules et les <em>prix</em></span><span class="pb-h1-n">PAGE 04</span></h2>
+
+  <div class="pb-offers">
+    <article class="pb-offer">
+      <div class="pb-offer-name">SEED</div>
+      <p class="pb-offer-tag">7 jours · 4 à 5 semaines</p>
+      <div class="pb-offer-price">3 500 €<small>one-shot</small></div>
+      <ul class="pb-offer-list">
+        <li><span class="plus">+</span>Cadrage du problème et des besoins utilisateurs</li>
+        <li><span class="plus">+</span>Plans de l'interface (avant la mise en couleur)</li>
+        <li><span class="plus">+</span>4 à 6 écrans finaux prêts à intégrer</li>
+        <li><span class="plus">+</span>Base du système de design</li>
+        <li><span class="plus">+</span>Figma livré avec toutes les annotations</li>
+      </ul>
+      <p class="pb-offer-ideal"><strong>Idéal pour</strong>Cadrer un nouveau module ou préparer une démo investisseur.</p>
+    </article>
+
+    <article class="pb-offer pb-offer--featured">
+      <span class="pb-offer-badge">Recommandé</span>
+      <div class="pb-offer-name">GROW</div>
+      <p class="pb-offer-tag">12 jours / mois · min. 3 mois</p>
+      <div class="pb-offer-price">5 000 €<small>/ mois</small></div>
+      <ul class="pb-offer-list">
+        <li><span class="plus">+</span>Disponible sur Slack en semaine</li>
+        <li><span class="plus">+</span>Participation aux sprints de l'équipe</li>
+        <li><span class="plus">+</span>Nouvelles fonctionnalités designées chaque mois</li>
+        <li><span class="plus">+</span>Specs prêtes à implémenter</li>
+        <li><span class="plus">+</span>Corrections post-intégration</li>
+      </ul>
+      <p class="pb-offer-ideal"><strong>Idéal pour</strong>Produit existant, itération continue avec un PM en place.</p>
+    </article>
+
+    <article class="pb-offer">
+      <div class="pb-offer-name">SCALE</div>
+      <p class="pb-offer-tag">16 jours / mois · min. 4 mois</p>
+      <div class="pb-offer-price">8 000 €<small>/ mois</small></div>
+      <ul class="pb-offer-list">
+        <li><span class="plus">+</span>Tout ce qu'inclut GROW</li>
+        <li><span class="plus">+</span>Système de design complet</li>
+        <li><span class="plus">+</span>Interviews utilisateurs mensuelles</li>
+        <li><span class="plus">+</span>Participation aux décisions de roadmap</li>
+        <li><span class="plus">+</span>Présence physique Paris &amp; 77</li>
+      </ul>
+      <p class="pb-offer-ideal"><strong>Idéal pour</strong>Scale-up qui a besoin d'un product designer quasi interne sans recruter.</p>
+    </article>
+  </div>
+
+  <div class="pb-callout pb-callout--gray">
+    <span class="pb-callout-mark">[ AU PASSAGE ]</span>
+    <p>Premier appel de découverte <strong>gratuit, 30 min, sans engagement.</strong> Si le projet demande plus de travail que prévu on prolonge d'un mois. <em>Jamais de facturation surprise.</em></p>
+  </div>
+
+  <h4 class="pb-h3">Ce qui n'est jamais inclus</h4>
+  <ul class="pb-list">
+    <li><span class="marker no">✗</span>Développement front-end</li>
+    <li><span class="marker no">✗</span>Animations et motion design</li>
+    <li><span class="marker no">✗</span>Rédaction de contenus</li>
+    <li><span class="marker no">✗</span>Illustration complexe</li>
+  </ul>
+
+  <div class="pb-pagebreak"></div>
+
+  <!-- 05 -->
+  <h2 class="pb-h1"><span>05 — Les 3 <em>situations</em> de mission</span><span class="pb-h1-n">PAGE 05</span></h2>
+
+  <div class="pb-cards">
+    <article class="pb-card">
+      <div class="pb-card-side">
+        <div class="pb-card-n">SITUATION 01</div>
+        <h4 class="pb-card-title">On construit<br /><em>de zéro.</em></h4>
+        <span class="pb-card-formule">→ FORMULE SCALE</span>
+      </div>
+      <p class="pb-card-body">
+        La première semaine on ne dessine rien. On passe du temps à comprendre
+        le problème business et les utilisateurs cibles. On valide par écrit ce
+        qu'on va résoudre avant d'avancer. Ensuite viennent les plans d'interface,
+        puis les écrans finaux avec le système de design en parallèle pour que les
+        développeurs puissent commencer à coder. Durée habituelle <strong>entre 8 et
+        12 semaines</strong>.
+      </p>
+    </article>
+
+    <article class="pb-card">
+      <div class="pb-card-side">
+        <div class="pb-card-n">SITUATION 02</div>
+        <h4 class="pb-card-title">Le produit existe,<br /><em>on l'améliore.</em></h4>
+        <span class="pb-card-formule">→ FORMULE GROW</span>
+      </div>
+      <p class="pb-card-body">
+        On commence par une semaine d'audit de l'existant. On identifie les
+        <strong>3 problèmes prioritaires avec des données à l'appui</strong>, pas
+        des opinions. Puis on travaille couche par couche : un problème résolu
+        par mois, livraison, mesure de l'impact, on passe au suivant.
+      </p>
+    </article>
+
+    <article class="pb-card">
+      <div class="pb-card-side">
+        <div class="pb-card-n">SITUATION 03</div>
+        <h4 class="pb-card-title">Mission courte<br /><em>ou urgence.</em></h4>
+        <span class="pb-card-formule">→ FORMULE SEED</span>
+      </div>
+      <p class="pb-card-body">
+        On cadre rapidement le problème en deux jours. On se concentre sur le
+        périmètre précis. 4 à 6 écrans finaux avec toutes les spécifications.
+        Pas de système de design complet, pas de recherche longue.
+        <strong>Chirurgical et rapide.</strong> Ce type de mission devient souvent
+        la porte d'entrée vers un GROW.
+      </p>
+    </article>
+  </div>
+
+  <h3 class="pb-h2">Comment on travaille au <em>quotidien.</em></h3>
+  <table class="pb-table">
+    <tbody>
+      <tr><th>Point vidéo</th><td>30 minutes par semaine</td></tr>
+      <tr><th>Échanges au quotidien</th><td>Slack en semaine, en asynchrone par défaut</td></tr>
+      <tr><th>Suivi des demandes</th><td>Board partagé sur Notion ou Linear</td></tr>
+      <tr><th>Réunions impromptues</th><td>Non. Tout est planifié à l'avance.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="pb-pagebreak"></div>
+
+  <!-- 06 -->
+  <h2 class="pb-h1"><span>06 — Les <em>objections</em> et les réponses</span><span class="pb-h1-n">PAGE 06</span></h2>
+  <p class="pb-p">Les réponses exactes, mot pour mot.</p>
+
+  <div class="pb-objs">
+    <article class="pb-obj">
+      <p class="pb-obj-q">On n'a pas le budget.</p>
+      <p class="pb-obj-a">
+        Quel est le coût pour vous de ne pas avoir de product designer en ce moment ?
+        Un sprint de développement sur la mauvaise fonctionnalité c'est entre 10 000
+        et 20 000 euros. La vraie question ce n'est pas le coût de Vision Glow, c'est
+        le coût de ne pas l'avoir. Et si le budget est vraiment serré, on peut commencer
+        par un SEED à 3 500 euros pour voir comment on travaille ensemble avant tout
+        engagement long terme.
+      </p>
+    </article>
+
+    <article class="pb-obj">
+      <p class="pb-obj-q">On préfère recruter quelqu'un en interne.</p>
+      <p class="pb-obj-a">
+        C'est souvent la bonne décision à terme. Mais pour trouver le bon profil, le
+        recruter et le former, comptez six mois minimum. En attendant votre prochain
+        sprint démarre dans deux semaines. Vision Glow couvre ce gap et vous aide à
+        définir exactement quel profil recruter ensuite puisqu'on documente tout ce
+        qui a été décidé.
+      </p>
+    </article>
+
+    <article class="pb-obj">
+      <p class="pb-obj-q">On a déjà essayé une agence, c'était décevant.</p>
+      <p class="pb-obj-a">
+        C'est souvent la même histoire. Une agence livre de beaux écrans faits par des
+        profils juniors supervisés de loin, sans vraiment comprendre votre réalité.
+        Vision Glow c'est un product designer qui est dans votre Slack, parle directement
+        à vos développeurs et participe à vos sprints. La différence se voit dès la fin
+        de la première semaine.
+      </p>
+    </article>
+
+    <article class="pb-obj">
+      <p class="pb-obj-q">L'IA va remplacer les designers.</p>
+      <p class="pb-obj-a">
+        L'IA remplace les personnes qui produisent des livrables sans réfléchir. Elle
+        ne remplace pas quelqu'un qui comprend un problème business, parle aux
+        utilisateurs et défend ses décisions devant une équipe technique. Et d'ailleurs
+        on utilise l'IA comme outil pour aller plus vite, ce qui signifie que vous
+        bénéficiez des deux.
+      </p>
+    </article>
+
+    <article class="pb-obj">
+      <p class="pb-obj-q">On a déjà un designer dans l'équipe.</p>
+      <p class="pb-obj-a">
+        Est-ce qu'il peut consacrer une semaine entière à interviewer des utilisateurs
+        tout en continuant à livrer les fonctionnalités du sprint en cours ? Si non,
+        Vision Glow peut intervenir en complément sur les sujets où il manque de bande
+        passante, pas en remplacement.
+      </p>
+    </article>
+
+    <article class="pb-obj">
+      <p class="pb-obj-q">On ne sait pas si on a assez de travail pour vous.</p>
+      <p class="pb-obj-a">
+        C'est pour ça qu'on propose le SEED en premier. Une mission courte, un
+        périmètre précis, pas d'engagement long terme. Vous voyez comment on
+        travaille. Si au bout de cinq semaines vous avez d'autres chantiers, on
+        continue. Sinon vous repartez avec un produit mieux conçu qu'avant.
+      </p>
+    </article>
+  </div>
+
+  <div class="pb-pagebreak"></div>
+
+  <!-- 07 -->
+  <h2 class="pb-h1"><span>07 — La <em>prochaine étape</em></span><span class="pb-h1-n">PAGE 07</span></h2>
+
+  <div class="pb-callout pb-callout--orange">
+    <span class="pb-callout-mark">[ ACTION ]</span>
+    <p>Une seule action à proposer : <em>« Je vous mets en contact avec Nico pour un appel de 30 minutes. Pas un pitch, une vraie conversation sur votre produit. Vous repartez avec au moins une idée utile, qu'on travaille ensemble ou pas. Il vous rappelle dans la journée. »</em></p>
+  </div>
+
+  <h3 class="pb-h2">Ce que Nico prépare avant chaque <em>appel.</em></h3>
+  <p class="pb-p">
+    Il regarde le produit du prospect, identifie deux ou trois points où
+    l'expérience utilisateur pourrait être améliorée, et arrive avec des
+    observations concrètes sur leur interface. <strong>Le prospect sent
+    immédiatement qu'on a fait nos devoirs.</strong>
+  </p>
+
+  <div class="pb-contact">
+    <div class="pb-contact-logo">
+      <span class="dot"></span> Vision Glow
+    </div>
+    <table class="pb-table" style="margin: 0; border-top: none;">
+      <tbody>
+        <tr><th>Fondateur</th><td>Nico-Armando Bertone</td></tr>
+        <tr><th>Email</th><td><a href="mailto:visionglow.contact@gmail.com">Visionglow.contact@gmail.com</a></td></tr>
+        <tr><th>Téléphone</th><td><a href="tel:+33645049227">06 45 04 92 27</a></td></tr>
+        <tr><th>Site</th><td><a href="index.html">vision-glow.agency</a></td></tr>
+        <tr><th>Disponibilité</th><td>Q3 / Q4 2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<div class="pb-watermark">VISION GLOW</div>
+
+<footer class="pb-foot">
+  <div>© 2026 — Vision Glow Studio · Dirigé par Nico-Armando Bertone</div>
+  <div>
+    <a href="mentions-legales.html">MENTIONS</a> ·
+    <a href="cgu.html">CGU</a> ·
+    <a href="politique-confidentialite.html">CONFIDENTIALITÉ</a>
+  </div>
+  <div><a href="index.html">← RETOUR AU SITE</a></div>
+</footer>
+
+</body>
+</html>

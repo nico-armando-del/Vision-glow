@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Studio de product design externalisé pour startups et scale-ups. On conçoit et améliore les produits digitaux (SaaS, apps, plateformes) sans designer senior en interne. Offres SEED, GROW, SCALE." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://visionglow.studio/" />
+  <meta property="og:title" content="Vision Glow | Studio de Product Design pour Startups" />
+  <meta property="og:description" content="On conçoit et améliore les produits digitaux des startups et scale-ups. Offres SEED, GROW, SCALE. Premier livrable en 4 semaines." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://visionglow.studio/" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Vision Glow" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vision Glow | Studio de Product Design pour Startups" />
+  <meta name="twitter:description" content="On conçoit et améliore les produits digitaux des startups et scale-ups. Offres SEED, GROW, SCALE." />
+  <title>Vision Glow | Studio de Product Design Externalisé — SaaS, Apps &amp; Plateformes · Paris</title>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link
+    href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Synchronous page-transition cover (must run before paint)
+    (function() {
+      if (sessionStorage.getItem('pageTransition')) {
+        document.documentElement.style.background = '#FF4D1F';
+        var s = document.createElement('style');
+        s.id = '__pt_cover_style';
+        s.textContent = '#__pt_cover{position:fixed;inset:0;background:#FF4D1F;z-index:99999;transform:translateY(0);transition:transform .6s cubic-bezier(.76,0,.24,1);pointer-events:none;display:flex;align-items:center;justify-content:center}#__pt_cover .__pt_logo{font-family:"Clash Display",sans-serif;font-weight:600;font-size:clamp(48px,8vw,120px);letter-spacing:-.03em;color:#0a0a0a;display:flex;align-items:center;gap:20px;opacity:0;transition:opacity .35s}#__pt_cover.__pt_show .__pt_logo{opacity:1}#__pt_cover .__pt_dot{width:18px;height:18px;background:#0a0a0a;border-radius:50%;animation:__pt_pulse 1s ease-in-out infinite}@keyframes __pt_pulse{0%,100%{opacity:1}50%{opacity:.3}}body.__pt-revealed #__pt_cover{transform:translateY(-100%)}';
+        document.head.appendChild(s);
+        document.addEventListener('DOMContentLoaded', function() {
+          var d = document.createElement('div');
+          d.id = '__pt_cover';
+          d.innerHTML = '<div class="__pt_logo"><span class="__pt_dot"></span>Vision Glow</div>';
+          document.body.appendChild(d);
+          requestAnimationFrame(function() { d.classList.add('__pt_show'); });
+          sessionStorage.removeItem('pageTransition');
+          // wait for full load before revealing
+          var revealed = false;
+          var reveal = function() {
+            if (revealed) return;
+            revealed = true;
+            setTimeout(function() {
+              document.body.classList.add('__pt-revealed');
+              setTimeout(function() { d.remove(); document.documentElement.style.background = ''; }, 750);
+            }, 220);
+          };
+          if (document.readyState === 'complete') reveal();
+          else window.addEventListener('load', reveal);
+          // safety net
+          setTimeout(reveal, 1800);
+        });
+      }
+    })();
+  </script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <style>
+    /* Cursor */
+    .cursor-dot, .cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      will-change: transform;
+    }
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--fg);
+      border-radius: 50%;
+      mix-blend-mode: difference;
+      transition: width 0.35s var(--ease), height 0.35s var(--ease), border-color 0.3s, background 0.3s;
+    }
+    .cursor-ring.is-hover {
+      width: 60px;
+      height: 60px;
+      background: var(--accent);
+      border-color: var(--accent);
+      margin-left: -12px;
+      margin-top: -12px;
+    }
+    @media (hover: none) {
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+    body { cursor: none; }
+    @media (hover: none) { body { cursor: auto; } }
+
+    /* loading state */
+    #__init_loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      background: #FF4D1F;
+      color: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+    #__init_loader.__done { transform: translateY(-100%); }
+    #__init_loader .__il_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    #__init_loader .__il_dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: #0a0a0a;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+      animation: __il_pulse 1s ease-in-out infinite;
+    }
+    @keyframes __il_pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    #__init_loader .__il_main {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    #__init_loader .__il_pct {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 600;
+      font-size: clamp(80px, 18vw, 240px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    #__init_loader .__il_pct span {
+      font-size: 0.3em;
+      font-weight: 500;
+      padding-top: 0.5em;
+      opacity: 0.7;
+    }
+    #__init_loader .__il_bar {
+      height: 4px;
+      background: rgba(10,10,10,0.2);
+      position: relative;
+      width: 100%;
+    }
+    #__init_loader .__il_bar_fill {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      transform: scaleX(0);
+      transform-origin: left;
+      will-change: transform;
+    }
+    @media (max-width: 600px) {
+      #__init_loader { padding: 16px; }
+      #__init_loader .__il_top { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="__init_loader">
+    <div class="__il_top">
+      <span><span class="__il_dot"></span>VISION GLOW</span>
+      <span>CHARGEMENT</span>
+    </div>
+    <div class="__il_main">
+      <div class="__il_pct"><span id="__il_num">000</span><span>%</span></div>
+      <div class="__il_bar"><div class="__il_bar_fill" id="__il_fill"></div></div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var loader = document.getElementById('__init_loader');
+      var num = document.getElementById('__il_num');
+      var fill = document.getElementById('__il_fill');
+      document.documentElement.style.overflow = 'hidden';
+      var start = performance.now();
+      var dur = 1800;
+      var done = false;
+      function step(t) {
+        var p = Math.min(1, (t - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        num.textContent = String(Math.floor(eased * 100)).padStart(3, '0');
+        fill.style.transform = 'scaleX(' + eased + ')';
+        if (p < 1) requestAnimationFrame(step);
+        else finish();
+      }
+      function finish() {
+        if (done) return;
+        done = true;
+        setTimeout(function() {
+          loader.classList.add('__done');
+          document.documentElement.style.overflow = '';
+          setTimeout(function() { loader.remove(); }, 850);
+        }, 250);
+      }
+      requestAnimationFrame(step);
+      setTimeout(finish, 3500);
+    })();
+  </script>
+
+  <div id="app"></div>
+
+  <script
+    src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"
+  ></script>
+
+  <script type="text/babel" src="hooks.jsx"></script>
+  <script type="text/babel" src="loader.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="sections/hero.jsx"></script>
+  <script type="text/babel" src="sections/manifesto.jsx"></script>
+  <script type="text/babel" src="sections/services.jsx"></script>
+  <script type="text/babel" src="sections/projects.jsx"></script>
+  <script type="text/babel" src="sections/process.jsx"></script>
+  <script type="text/babel" src="sections/clients.jsx"></script>
+  <script type="text/babel" src="sections/pricing.jsx"></script>
+  <script type="text/babel" src="sections/faq.jsx"></script>
+  <script type="text/babel" src="sections/contact.jsx"></script>
+  <script type="text/babel" src="app.jsx"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "name": "Vision Glow",
+        "description": "Studio de design externalisé à Paris. Branding, refonte d'application mobile, direction artistique, créas social ads. Abonnement mensuel sans engagement.",
+        "url": "https://visionglow.studio",
+        "logo": "https://visionglow.studio/logo.svg",
+        "email": "visionglow.contact@gmail.com",
+        "telephone": "+33645049227",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75000",
+          "addressRegion": "Île-de-France / 77",
+          "addressCountry": "FR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 48.8566,
+          "longitude": 2.3522
+        },
+        "areaServed": "France",
+        "priceRange": "€€€",
+        "foundingDate": "2019",
+        "sameAs": [
+          "https://www.instagram.com/vision_glow_agency"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Services Vision Glow",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Sprint",
+              "description": "Un projet ponctuel livré en 2-3 semaines. Branding, refonte, campagne.",
+              "price": "4800",
+              "priceCurrency": "EUR"
+            },
+            {
+              "@type": "Offer",
+              "name": "Studio",
+              "description": "Votre équipe design en abonnement. File de tâches illimitée, livraison continue.",
+              "price": "9400",
+              "priceCurrency": "EUR",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "billingDuration": "P1M"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Pourquoi un studio externalisé plutôt qu'un freelance ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Un freelance livre un livrable. Un studio livre un système, une cohérence dans le temps, et une équipe redondante en cas d'urgence. Vous gagnez en stabilité sans la charge d'un recrutement."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Combien de tâches puis-je demander en simultané ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sur l'abonnement Studio, une tâche active à la fois, traitée en 48-72h. Vous pouvez en empiler autant que vous voulez en file. Sur Système, jusqu'à 3 tâches simultanées."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Travaillez-vous en marque blanche ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Plusieurs agences nous délèguent leur production design. Nous signons un NDA renforcé et n'apparaissons jamais en façade. Discrétion contractuelle totale."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quels outils utilisez-vous ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Figma, Framer, Notion, Linear et Slack par défaut. Nous nous adaptons à votre stack : Webflow, Storybook, GitHub, FigJam. Le handoff vers vos devs fait partie du livrable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Peut-on mettre l'abonnement en pause ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "À tout moment. Vous pouvez interrompre votre mois en cours, le reprendre 3 mois plus tard, ou changer de formule sans frais. Engagement zéro."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qui sont les designers qui travaillent sur mon projet ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Une équipe permanente de 6 designers seniors basés à Paris, Berlin et Lisbonne. Pas de sous-traitance, pas de juniors masqués. Vous parlez directement à celui qui produit."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

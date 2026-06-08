@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projet — Vision Glow</title>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link
+    href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function() {
+      if (sessionStorage.getItem('pageTransition')) {
+        document.documentElement.style.background = '#FF4D1F';
+        var s = document.createElement('style');
+        s.id = '__pt_cover_style';
+        s.textContent = '#__pt_cover{position:fixed;inset:0;background:#FF4D1F;z-index:99999;transform:translateY(0);transition:transform .6s cubic-bezier(.76,0,.24,1);pointer-events:none;display:flex;align-items:center;justify-content:center}#__pt_cover .__pt_logo{font-family:"Clash Display",sans-serif;font-weight:600;font-size:clamp(48px,8vw,120px);letter-spacing:-.03em;color:#0a0a0a;display:flex;align-items:center;gap:20px;opacity:0;transition:opacity .35s}#__pt_cover.__pt_show .__pt_logo{opacity:1}#__pt_cover .__pt_dot{width:18px;height:18px;background:#0a0a0a;border-radius:50%;animation:__pt_pulse 1s ease-in-out infinite}@keyframes __pt_pulse{0%,100%{opacity:1}50%{opacity:.3}}body.__pt-revealed #__pt_cover{transform:translateY(-100%)}';
+        document.head.appendChild(s);
+        document.addEventListener('DOMContentLoaded', function() {
+          var d = document.createElement('div');
+          d.id = '__pt_cover';
+          d.innerHTML = '<div class="__pt_logo"><span class="__pt_dot"></span>Vision Glow</div>';
+          document.body.appendChild(d);
+          requestAnimationFrame(function() { d.classList.add('__pt_show'); });
+          sessionStorage.removeItem('pageTransition');
+          var revealed = false;
+          var reveal = function() {
+            if (revealed) return; revealed = true;
+            setTimeout(function() {
+              document.body.classList.add('__pt-revealed');
+              setTimeout(function() { d.remove(); document.documentElement.style.background = ''; }, 750);
+            }, 220);
+          };
+          if (document.readyState === 'complete') reveal();
+          else window.addEventListener('load', reveal);
+          setTimeout(reveal, 1800);
+        });
+      }
+    })();
+  </script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <style>
+    body { cursor: none; }
+    @media (hover: none) { body { cursor: auto; } }
+    .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; will-change: transform; }
+    .cursor-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; mix-blend-mode: difference; }
+    .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--fg); border-radius: 50%; mix-blend-mode: difference; transition: width .35s var(--ease), height .35s var(--ease); }
+    .cursor-ring.is-hover { width: 60px; height: 60px; background: var(--accent); border-color: var(--accent); margin-left: -12px; margin-top: -12px; }
+    @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
+
+    /* ───── HERO ───── */
+    .pr-hero {
+      min-height: 100vh;
+      padding: 120px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .pr-hero-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+    }
+    .pr-hero-top a { color: var(--fg-2); }
+    .pr-hero-top a:hover { color: var(--accent); }
+    .pr-hero-title {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: clamp(80px, 16vw, 280px);
+      line-height: 0.85;
+      letter-spacing: -0.045em;
+      margin: 0;
+      padding: 60px 0 40px;
+    }
+    .pr-hero-title em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .pr-hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .pr-hero-meta-item .l {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .pr-hero-meta-item .v {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    /* ───── FULL BLEED IMAGE ───── */
+    .pr-full {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    .pr-full .tex-card { width: 100%; height: 100%; border-radius: 0; }
+    .pr-full.pr-full-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pr-full .pr-cap {
+      position: absolute;
+      bottom: 24px;
+      left: 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--fg);
+      letter-spacing: 0.08em;
+      mix-blend-mode: difference;
+    }
+
+    /* ───── INTRO ───── */
+    .pr-intro {
+      padding: 160px 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 120px;
+    }
+    .pr-intro-side {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+      position: sticky;
+      top: 120px;
+      align-self: start;
+    }
+    .pr-intro-side .l {
+      display: block;
+      margin-bottom: 8px;
+    }
+    .pr-intro-side .v {
+      color: var(--fg);
+      font-family: 'Satoshi', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0;
+      margin-bottom: 28px;
+      display: block;
+    }
+    .pr-intro-side .v.list span { display: block; }
+    .pr-intro-body p {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(28px, 3.2vw, 48px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      margin-bottom: 40px;
+      max-width: 18ch;
+    }
+    .pr-intro-body p:last-child { margin-bottom: 0; }
+    .pr-intro-body p em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ───── DUAL ───── */
+    .pr-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      padding: 0 32px 80px;
+    }
+    .pr-dual .tex-card { height: 80vh; border-radius: 8px; }
+    .pr-dual .pr-d-tall { height: 95vh; }
+    .pr-dual .pr-d-short { height: 70vh; margin-top: 25vh; }
+
+    /* ───── TRIO ───── */
+    .pr-trio {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 24px;
+      padding: 0 32px 80px;
+      align-items: end;
+    }
+    .pr-trio .tex-card { border-radius: 8px; }
+    .pr-trio .t1 { height: 60vh; }
+    .pr-trio .t2 { height: 90vh; }
+    .pr-trio .t3 { height: 50vh; }
+
+    /* ───── PROCESS QUOTE ───── */
+    .pr-quote {
+      padding: 200px 32px;
+      text-align: left;
+      max-width: 1600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .pr-quote-num {
+      position: absolute;
+      top: 80px;
+      right: 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+    }
+    .pr-quote h2 {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: clamp(56px, 8vw, 140px);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .pr-quote h2 em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .pr-quote-cite {
+      margin-top: 60px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+    }
+    .pr-quote-cite strong { color: var(--fg); font-weight: 400; }
+
+    /* ───── DETAILS GRID ───── */
+    .pr-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      padding: 0 32px 80px;
+    }
+    .pr-grid .tex-card { border-radius: 6px; }
+    .pr-grid .g1 { grid-column: span 2; height: 50vh; }
+    .pr-grid .g2 { grid-column: span 4; height: 50vh; }
+    .pr-grid .g3 { grid-column: span 3; height: 60vh; }
+    .pr-grid .g4 { grid-column: span 3; height: 60vh; }
+    .pr-grid .g5 { grid-column: span 2; height: 45vh; }
+    .pr-grid .g6 { grid-column: span 2; height: 45vh; }
+    .pr-grid .g7 { grid-column: span 2; height: 45vh; }
+
+    /* ───── RESULTS ───── */
+    .pr-results {
+      padding: 160px 32px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .pr-results h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+      margin-bottom: 60px;
+    }
+    .pr-results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .pr-results-stat .n {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: clamp(64px, 9vw, 140px);
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      display: block;
+    }
+    .pr-results-stat .n em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .pr-results-stat .l {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+      margin-top: 16px;
+      display: block;
+      max-width: 28ch;
+    }
+
+    /* ───── NEXT ───── */
+    .pr-next {
+      padding: 100px 32px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pr-next-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+      margin-bottom: 32px;
+    }
+    .pr-next a.next-link {
+      display: inline-block;
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 500;
+      font-size: clamp(60px, 10vw, 180px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--fg);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.4s var(--ease);
+    }
+    .pr-next a.next-link em {
+      font-family: 'Clash Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .pr-next a.next-link:hover { color: var(--accent); }
+    .pr-next a.next-link .arrow {
+      display: inline-block;
+      margin-left: 0.1em;
+      transition: transform 0.4s var(--ease);
+    }
+    .pr-next a.next-link:hover .arrow { transform: translate(20px, -10px); }
+    .pr-next-meta {
+      margin-top: 60px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-2);
+      letter-spacing: 0.08em;
+    }
+    .pr-next-meta a { color: var(--fg-2); }
+    .pr-next-meta a:hover { color: var(--accent); }
+
+    /* nav (light style) */
+    .pr-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: difference;
+    }
+    .pr-nav a {
+      color: #f5f1ea;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .pr-nav-logo {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pr-nav-logo::before {
+      content: "";
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    @media (max-width: 900px) {
+      .pr-hero { padding: 100px 20px 40px; }
+      .pr-hero-top { grid-template-columns: 1fr; gap: 12px; }
+      .pr-hero-meta { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+      .pr-intro { grid-template-columns: 1fr; gap: 60px; padding: 100px 20px; }
+      .pr-intro-side { position: static; }
+      .pr-dual { grid-template-columns: 1fr; padding: 0 20px 40px; }
+      .pr-dual .pr-d-short { margin-top: 0; }
+      .pr-trio { grid-template-columns: 1fr; padding: 0 20px 40px; }
+      .pr-trio .tex-card { height: 60vh !important; }
+      .pr-quote { padding: 100px 20px; }
+      .pr-grid { grid-template-columns: 1fr; padding: 0 20px 40px; }
+      .pr-grid .tex-card { grid-column: 1 / -1 !important; }
+      .pr-results { padding: 80px 20px; }
+      .pr-results-grid { grid-template-columns: 1fr; gap: 40px; }
+      .pr-next { padding: 80px 20px 40px; }
+      .pr-next-meta { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script
+    src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"
+  ></script>
+
+  <script type="text/babel" src="hooks.jsx"></script>
+  <script type="text/babel" src="loader.jsx"></script>
+  <script type="text/babel" src="project-data.jsx"></script>
+  <script type="text/babel" src="project-page.jsx"></script>
+</body>
+</html>
